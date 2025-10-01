@@ -29,4 +29,4 @@ export const deleteUser = (id) =>
   db.prepare(`DELETE FORM users WHERE id = ?`).run(id);
 
 export const getUserByEmail = (email) =>
-  db.prepare(`SELECT * FROM users WHERE id = ?`).get(email);
+  db.prepare(`SELECT * FROM users WHERE email = ?`).get(email);
