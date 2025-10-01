@@ -42,12 +42,16 @@ app.post("/login", (req, res) => {
   }
   const user = db.getUserByEmail(email);
   if (!user) {
-    return res.status(404).json({ message: "User not found! " });
+    return res.status(400).json({ message: "Invalid data! " });
   }
   if (!bcrypt.compareSync(password, user.password)) {
-    return res.status(403).json({ message: "Not allowed! " });
+    return res.status(400).json({ message: "Invalid data! " });
   }
   res.json(user);
+});
+
+app.use((err, req, res, next) => {
+  if (err) res.status(500).json({ message: err.message });
 });
 
 app.listen(PORT, () => {
